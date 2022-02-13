@@ -47,29 +47,20 @@ class Linked_List:
     def remove(self, item):
         currnode = self.start
         prevnode = None
+        if currnode == None:
+            raise Exception("NO SUCH ELEMENT")
         if currnode.value == item:
-            if currnode.next is not None:
-                self.start = currnode.next
-                del currnode
-                return "Item removed"
-            else:
-                self.start = None
-                del currnode
-                return "Item removed"
+            self.start = currnode.next
+            del currnode
+            return "Item removed"
         while currnode.next is not None:
+            prevnode = currnode
+            currnode = currnode.next
             if currnode.value == item:
                 tempnode = currnode
                 prevnode.next = currnode.next
                 del currnode
                 return "Item removed"
-            else:
-                prevnode = currnode
-                currnode = currnode.next
-        if currnode.value == item:
-            tempnode = currnode
-            prevnode.next = currnode.next
-            del currnode
-            return "Item removed"
         raise Exception("NO SUCH ELEMENT")
 
     def search(self, item):
@@ -120,16 +111,21 @@ class Linked_List:
         currnode = self.start
         prevnode = None
         size = self.size()
-        if pos > size - 1:
+        if pos == 0:
+            tempnode = Node(item)
+            tempnode.next = currnode
+            self.start = tempnode
+        elif pos > size - 1 or pos < 0:
             raise Exception("INDEX OUT OF RANGE")
-        for i in range(pos + 1):
-            if i == pos:
-                tempnode = Node(item)
-                tempnode.next = prevnode.next
-                prevnode.next = tempnode
-            else:
-                prevnode = currnode
-                currnode = currnode.next
+        else:
+            for i in range(pos + 1):
+                if i == pos:
+                    tempnode = Node(item)
+                    tempnode.next = prevnode.next
+                    prevnode.next = tempnode
+                else:
+                    prevnode = currnode
+                    currnode = currnode.next
 
     def pop(self, pos=None):
         currnode = self.start
@@ -152,7 +148,7 @@ class Linked_List:
             size = self.size()
             if currnode == None:
                 raise Exception("LIST IS EMPTY")
-            elif pos > size - 1:
+            elif pos > size - 1 or pos < 0:
                 raise Exception("INDEX OUT OF RANGE")
             if currnode.next == None:
                 tempnode = currnode
@@ -189,16 +185,13 @@ class Doubly_Linked_List:
 # --=[ testing ]=--
 
 items = Linked_List()
-items.add("Heyman1")
+items.insert(0, "Heyman2")
 items.append("Heyman3")
 items.append("Heyman5")
-items.insert(1, "Heyman2")
+items.insert(0, "Heyman1")
 items.insert(3, "Heyman4")
 items.printlist()
 
-print(str(items.pop(4)))
-print(str(items.pop(3)))
-print(str(items.pop(2)))
-print(str(items.pop(1)))
-print(str(items.pop(0)))
-print(str(items.pop(0)))
+print(items.pop())
+print(items.pop(1))
+items.printlist()
