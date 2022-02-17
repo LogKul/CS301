@@ -2,6 +2,8 @@ from operator import index
 from re import A
 
 
+# ===== Stack Class =====
+
 class Stack:
     def __init__(self):
         self.items = []
@@ -22,9 +24,11 @@ class Stack:
         return len(self.items)
 
 
-# ===== Node =====
+# ===== Node Class =====
 
 class Node:
+    # Node class only holds a value, holds reference to next node object, and holds reference to previous node object
+    # A value is the only necessary parameter, but reference to previous node object can be passed in, defaults to None
     def __init__(self, val, prev=None):
         self.value = val
         self.next = None
@@ -34,16 +38,19 @@ class Node:
 # ===== Linked List =====
 
 class Linked_List:
+    # Linked list is initialized with a head node and an element counter
     def __init__(self):
         self.start = None
         self.elements = 0
 
+    # Item parameter is added as the new starting node
     def add(self, item):
         tempnode = self.start
         self.start = Node(item)
         self.start.next = tempnode
         self.elements += 1
 
+    # Removes item, base cases for if list is empty and if list has only 1 element, returns string signalling removal of item
     def remove(self, item):
         currnode = self.start
         prevnode = None
@@ -64,6 +71,7 @@ class Linked_List:
                 return "Item removed"
         raise Exception("NO SUCH ELEMENT")
 
+    # Searches for item and returns boolean if item is found or not
     def search(self, item):
         currnode = self.start
         while currnode is not None:
@@ -72,12 +80,15 @@ class Linked_List:
             currnode = currnode.next
         return False
 
+    # Returns boolean if head node is an element
     def isEmpty(self):
         return self.start == None
 
+    # Returns element count
     def size(self):
         return self.elements
 
+    # Adds node to the end of the linked list, base case for when list is empty
     def append(self, item):
         if self.start == None:
             self.start = Node(item)
@@ -88,6 +99,7 @@ class Linked_List:
             currnode.next = Node(item)
         self.elements += 1
 
+    # Searches for item and returns index if item is found
     def index(self, item):
         currnode = self.start
         index = 0
@@ -100,6 +112,8 @@ class Linked_List:
             return index
         raise Exception("NO SUCH ELEMENT")
 
+    # Inserts item at a position in between two elements, has base cases for if insertion position is at the start
+    # and for when the position is not in the range of elements
     def insert(self, pos, item):
         currnode = self.start
         prevnode = None
@@ -122,6 +136,11 @@ class Linked_List:
                     prevnode = currnode
                     currnode = currnode.next
 
+    # Deleted element from list and returns its value, has 2 modes with position and without:
+    # WITHOUT POSITION: Last element is popped, base cases for if list is empty and if list only has 1 element
+    # WITH POSITION: Element at position is popped, 2 surrounding nodes rejoined, base cases for
+    #                when list is empty, position is out of range of the list, if list has only 1 element,
+    #                and if the head node is being popped
     def pop(self, pos=None):
         currnode = self.start
         prevnode = None
@@ -168,6 +187,7 @@ class Linked_List:
             self.elements -= 1
             return tempnode.value
 
+    # Function that prints the list, mostly for debugging, base case for is list is empty
     def printlist(self):
         if self.start is not None:
             currnode = self.start
@@ -183,16 +203,15 @@ class Linked_List:
             print("None")
 
 
-# ===== BIG GAP to make it easier to distinguish between LL and DLL =====
-
-
 # ===== Doubly-Linked List =====
 
 class Doubly_Linked_List:
+    # Doubly linked list is initialized with a head node and an element counter
     def __init__(self):
         self.start = None
         self.elements = 0
 
+    # Item parameter is added as the new starting node
     def add(self, item):
         tempnode = Node(item)
         tempnode.next = self.start
@@ -201,6 +220,7 @@ class Doubly_Linked_List:
         self.elements += 1
         self.start = tempnode
 
+    # Removes item, base cases for if list is empty and if list has only 1 element, returns string signalling removal of item
     def remove(self, item):
         currnode = self.start
         if currnode == None:
@@ -208,18 +228,17 @@ class Doubly_Linked_List:
         if currnode.value == item:
             self.start = currnode.next
             self.start.previous = None
-            del currnode
             self.elements -= 1
             return "Item removed"
         while currnode.next is not None:
             currnode = currnode.next
             if currnode.value == item:
                 currnode.previous.next = currnode.next
-                del currnode
                 self.elements -= 1
                 return "Item removed"
         raise Exception("NO SUCH ELEMENT")
 
+    # Searches for item and returns boolean if item is found or not
     def search(self, item):
         currnode = self.start
         while currnode is not None:
@@ -228,12 +247,15 @@ class Doubly_Linked_List:
             currnode = currnode.next
         return False
 
+    # Returns boolean whether head node is an element or not
     def isEmpty(self):
         return self.start == None
 
+    # Returns element counter
     def size(self):
         return self.elements
 
+    # Adds node to the end of the linked list, base case for when list is empty
     def append(self, item):
         if self.start == None:
             self.start = Node(item)
@@ -245,6 +267,7 @@ class Doubly_Linked_List:
             currnode.next.previous = currnode
         self.elements += 1
 
+    # Searches for item and returns index if item is found
     def index(self, item):
         currnode = self.start
         index = 0
@@ -255,13 +278,14 @@ class Doubly_Linked_List:
             index += 1
         raise Exception("NO SUCH ELEMENT")
 
+    # Inserts item at a position in between two elements, has base cases for if insertion position is at the start
+    # and for when the position is not in the range of elements
     def insert(self, pos, item):
         currnode = self.start
         size = self.elements
         if pos == 0:
-            tempnode = Node(item)
-            tempnode.next = currnode
-            self.start = tempnode
+            self.start = Node(item)
+            self.start.next = currnode
             currnode.previous = self.start
             self.elements += 1
         elif pos > size or pos < 0:
@@ -285,6 +309,11 @@ class Doubly_Linked_List:
                 else:
                     currnode = currnode.next
 
+    # Deleted element from list and returns its value, has 2 modes with position and without:
+    # WITHOUT POSITION: Last element is popped, base cases for if list is empty and if list only has 1 element
+    # WITH POSITION: Element at position is popped, 2 surrounding nodes rejoined, base cases for
+    #                when list is empty, position is out of range of the list, if list has only 1 element,
+    #                and if the head node is being popped
     def pop(self, pos=None):
         currnode = self.start
         if pos is None:
@@ -297,11 +326,9 @@ class Doubly_Linked_List:
                 return tempnode.value
             while currnode.next is not None:
                 currnode = currnode.next
-            val = currnode.value
             currnode.previous.next = None
-            del currnode
             self.elements -= 1
-            return val
+            return currnode.value
         else:
             size = self.elements
             if currnode == None:
@@ -309,27 +336,22 @@ class Doubly_Linked_List:
             elif pos > size - 1 or pos < 0:
                 raise Exception("INDEX OUT OF RANGE")
             elif currnode.next == None:
-                tempnode = currnode
                 self.start = None
-                del currnode
                 self.elements -= 1
-                return tempnode.value
+                return currnode.value
             elif pos == 0:
-                val = currnode.value
                 self.start = currnode.next
-                del currnode
                 self.start.previous = None
                 self.elements -= 1
-                return val
+                return currnode.value
             else:
                 for i in range(pos):
                     currnode = currnode.next
-                tempnode = currnode
                 currnode.previous.next = currnode.next
-                del currnode
                 self.elements -= 1
-                return tempnode.value
+                return currnode.value
 
+    # Function that prints the list, mostly for debugging, base case for is list is empty
     def printlist(self):
         if self.start is not None:
             currnode = self.start
@@ -347,18 +369,21 @@ class Doubly_Linked_List:
 
 # --=[ testing ]=--
 
-items = Doubly_Linked_List()
-items.add("Heyman2")
-items.printlist()
-items.append("Heyman3")
-items.printlist()
-items.insert(2, "Heyman5")
-items.printlist()
-items.add("Heyman1")
-items.printlist()
-items.insert(3, "Heyman4")
-items.printlist()
+if __name__ == "__main__":
+    items = Doubly_Linked_List()
+    items.add("Heyman2")
+    items.printlist()
+    items.append("Heyman3")
+    items.printlist()
+    items.insert(2, "Heyman5")
+    items.printlist()
+    items.insert(0, "Heyman1")
+    items.printlist()
+    items.insert(3, "Heyman4")
+    items.printlist()
 
-print(items.index("Heyman5"))
-print(items.index("Heyman1"))
-print(items.index("Heyman3"))
+    print(items.pop())
+    print(items.pop())
+    print(items.pop())
+
+    items.printlist()
