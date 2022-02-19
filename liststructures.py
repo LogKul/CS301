@@ -3,28 +3,105 @@ from re import A
 
 
 # ===== Stack Class =====
-
 class Stack:
+    # Basic stack class, last in, first out
     def __init__(self):
         self.items = []
 
+    # Returns boolean if stack is empty or not
     def isEmpty(self):
         return self.items == []
 
+    # Place item onto stack
     def push(self, item):
         self.items.append(item)
 
+    # Remove and return element on top of stack
     def pop(self):
         return self.items.pop()
 
+    # Return the value of the current item at top of stack
     def peek(self):
         return self.items[len(self.items)-1]
 
+    # Returns number of elements in stack
     def size(self):
         return len(self.items)
 
+    # Prints all elements of stack
+    def printStack(self):
+        print(self.items)
+
+
+# ===== Queue Class =====
+class Queue:
+    # Queue list structure, first in, first out
+    def __init__(self):
+        self.items = []
+
+    # Add item to back of queue
+    def enqueue(self, item):
+        self.items.append(item)
+
+    # Remove and return element first up in queue
+    def dequeue(self):
+        item = self.items[0]
+        del self.items[0]
+        return item
+
+    # Returns boolean for if list queue is empty or not
+    def isEmpty(self):
+        return self.items == []
+
+    # Returns length of queue
+    def size(self):
+        return len(self.items)
+
+    # Prints all elements of queue
+    def printQueue(self):
+        print(self.items)
+
+
+# ===== Dequeue (Deque) Class =====
+class Deque:
+    # Dequeue list structure, can act as both a queue and a stack, double-ended
+    def __init__(self):
+        self.items = []
+
+    # Adds element to front of deque
+    def addFront(self, item):
+        self.items.insert(0, item)
+
+    # Adds element to back of deque
+    def addRear(self, item):
+        self.items.append(item)
+
+    # Removes and returns element at front of deque
+    def removeFront(self):
+        item = self.items[0]
+        del self.items[0]
+        return item
+
+    # Removes and returns element at back of deque
+    def removeRear(self):
+        item = self.items[len(self.items)-1]
+        del self.items[len(self.items)-1]
+        return item
+
+    # Returns boolean for if deque is empty or not
+    def isEmpty(self):
+        return self.items == []
+
+    # Returns number of elements in deque
+    def size(self):
+        return len(self.items)
+
+    # Print all elements of deque
+    def printDeque(self):
+        return print(self.items)
 
 # ===== Node Class =====
+
 
 class Node:
     # Node class only holds a value, holds reference to next node object, and holds reference to previous node object
@@ -36,7 +113,6 @@ class Node:
 
 
 # ===== Linked List =====
-
 class Linked_List:
     # Linked list is initialized with a head node and an element counter
     def __init__(self):
@@ -204,7 +280,6 @@ class Linked_List:
 
 
 # ===== Doubly-Linked List =====
-
 class Doubly_Linked_List:
     # Doubly linked list is initialized with a head node and an element counter
     def __init__(self):
@@ -367,7 +442,7 @@ class Doubly_Linked_List:
             print("None")
 
 
-# --=[ testing ]=--
+# --=[ TESTING ]=--
 
 if __name__ == "__main__":
     items = Doubly_Linked_List()
@@ -387,3 +462,19 @@ if __name__ == "__main__":
     print(items.pop())
 
     items.printlist()
+
+
+# ===== Assignment Questions =====
+
+# 6.)   Q.) Do you think that python’s internal representation of a list is a linked-list, a doubly-linked list,
+#           or something else? Why or why not?
+#
+#       A.) [answer here]
+#
+# 7.)   Q.) Now that you’ve implemented linked lists and doubly-linked lists, you have the option of
+#           using these in place of python lists inside your implementation of stacks, queues, and dekes.
+#           For each of these, explain which type of list(python list, linked list, or doubly-linked list)
+#           should give the best Big Oh running time in a comment.
+#
+#       A.) [answer here]
+#
