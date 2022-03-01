@@ -34,12 +34,19 @@ class HashList:
 
     def hashfunction(self, item):
         index = item % (self.length)
-        if self.elements[index] == None:
+        if self.elements[index] is None:
             return index
         else:
-            while self.elements[index] != None:
+            while (self.elements[index] is not None) & (index < self.length - 1):
                 index += 1
-            return index
+            if (index + 1 == self.length) & (self.elements[index] is not None):
+                index = 0
+                while (self.elements[index] is not None) & (index < item % self.length):
+                    index += 2
+            if self.elements[index] is None:
+                return index
+            else:
+                raise Exception("ERROR: HashList already full")
 
     def put(self, item):
         self.elements[self.hashfunction(item)] = item
@@ -70,6 +77,7 @@ a.put(5)
 a.put(6)
 a.put(7)
 a.put(8)
+print(a.items())
 a.put(9)
 a.put(10)
 print(a.items())
