@@ -16,6 +16,7 @@
 #   items(), prints out the HashList in a user-readable format
 
 # I don't know what the below import statement is for, probably auto-generated
+# Commented it out just in case.
 #from re import S
 
 
