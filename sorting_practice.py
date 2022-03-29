@@ -1,51 +1,70 @@
-# Initialize the list
-a = [26, 54, 93, 17, 77, 31, 44, 55, 20]
-
 # Insertion sort
-b = [26, 54, 93, 17, 77, 31, 44, 55, 20]
-for i in range(1, len(b)):
-    j = i
-    while (b[j] < b[j-1]) & (j > 0):
-        temp = b[j-1]
-        b[j-1] = b[j]
-        b[j] = temp
-        j -= 1
-print("Insertion Sort:", b)
+# O(N) running time, because
+
+
+def insertionSort(li):
+    outputlist = [li.pop(0)]
+
+    for item in li:
+        i = 0
+        flag = False
+        while (not flag):
+            if i == len(outputlist):
+                outputlist.append(item)
+                flag = True
+            elif item < outputlist[i]:
+                outputlist.insert(i, item)
+                flag = True
+            else:
+                i += 1
+    return outputlist
+
 
 # Bubble Sort
-c = [26, 54, 93, 17, 77, 31, 44, 55, 20]
-for i in range(0, len(c)):
-    for j in range(1, len(c) - i):
-        if (c[j] < c[j-1]):
-            temp = c[j-1]
-            c[j-1] = c[j]
-            c[j] = temp
-print("Bubble Sort:   ", c)
+# O(N) running time, because
+
+
+def bubbleSort(li):
+    for i in range(0, len(li)):
+        for j in range(1, len(li) - i):
+            if (li[j] < li[j-1]):
+                temp = li[j-1]
+                li[j-1] = li[j]
+                li[j] = temp
+
 
 # Selection Sort
-d = [26, 54, 93, 17, 77, 31, 44, 55, 20]
-for i in range(len(d)):
-    min = 0
-    for j in range(len(d) - i):
-        if d[j] < d[min]:
-            min = j
-    temp = d.pop(min)
-    d.append(temp)
-print("Selection Sort:", d)
+# O(N) running time, because
+
+
+def selectionSort(li):
+    for i in range(0, len(li)):
+        min = i
+        for j in range(i, len(li)):
+            if li[j] < li[min]:
+                min = j
+        temp = li[min]
+        li[min] = li[i]
+        li[i] = temp
+
 
 # Merge Sort
-e = [26, 54, 93, 17, 77, 31, 44, 55, 20]
+# O(N) running time, because
 
 
 def mergeSort(li):
+    # Base case, if list has length 1, it is already sorted
     if len(li) > 1:
+        # Calculate middle index, and split input list into two smaller lists, L and R
         mid = len(li) // 2
         L = li[:mid]
         R = li[mid:]
 
+        # Call mergeSort for both of the smaller lists
         mergeSort(L)
         mergeSort(R)
 
+        # Begin sorting after sorted contents float back up the recursion ladder from our mergeSort call
         i = 0
         j = 0
         k = 0
@@ -70,5 +89,20 @@ def mergeSort(li):
             k += 1
 
 
-mergeSort(e)
-print("Merge Sort:    ", e)
+if __name__ == '__main__':
+    # Initialize the lists
+    a = [26, 54, 93, 17, 77, 31, 44, 55, 20]
+    b = [26, 54, 93, 17, 77, 31, 44, 55, 20]
+    c = [26, 54, 93, 17, 77, 31, 44, 55, 20]
+    d = [26, 54, 93, 17, 77, 31, 44, 55, 20]
+
+    # Test each sorting function based on initialized lists a, b, c, and d
+    print("Unsorted List:  ", a)
+    a = insertionSort(a)
+    print("Insertion Sort: ", a)
+    bubbleSort(b)
+    print("Bubble Sort:    ", b)
+    selectionSort(c)
+    print("Selection Sort: ", c)
+    mergeSort(d)
+    print("Merge Sort:     ", d)
