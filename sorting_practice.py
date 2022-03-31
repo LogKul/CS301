@@ -1,5 +1,12 @@
+# Assignment 5: Sorting Lists, by Logan Kulesus
+# Due April 3rd, 2022
+
+
 # Insertion sort
-# O(N) running time, because
+# O(N^2) running time, because for all N elements of the input list, the code will run through
+# each element of the output list. The insert method runs in O(N) time, but runs only if the
+# correct index is found within the while loop, so the runtime of the while loop and the
+# insert method are additive, not multiplicative, which is why the runtime is O(N^2).
 
 
 def insertionSort(li):
@@ -21,7 +28,8 @@ def insertionSort(li):
 
 
 # Bubble Sort
-# O(N) running time, because
+# O(N^2) running time, because for every N, the code runs through
+# N + (N-1)(N-2)/2 iterations of a few operations, which multiplies out to be O(N^2).
 
 
 def bubbleSort(li):
@@ -34,10 +42,14 @@ def bubbleSort(li):
 
 
 # Selection Sort
-# O(N) running time, because
+# O(N^2) running time, because for each element N of our input list, we run through
+# the rest of our list (incrementally, because after each run of the outer for loop,
+# the number of times the inner for loop runs decreases by 1), which indicates a
+# pattern of runtimes similar to the bubble sort, which involves triangular numbers,
+# which resolves to O(N^2).
 
 
-def selectionSort(li):
+def selectionSortMin(li):
     for i in range(0, len(li)):
         min = i
         for j in range(i, len(li)):
@@ -48,8 +60,26 @@ def selectionSort(li):
         li[i] = temp
 
 
+def selectionSort(li):
+    for i in range(len(li)-1, -1, -1):
+        max = i
+        for j in range(0, i):
+            if li[j] > li[max]:
+                max = j
+        temp = li[max]
+        li[max] = li[i]
+        li[i] = temp
+
+
 # Merge Sort
-# O(N) running time, because
+# O(N*log(N)) running time, because we break the initial list in half, and divide
+# each subsequent list by half as well until each list is length 1, and because
+# of the use of recursion, all our broken lists float back up the the initial
+# method call while being sorted each time, and with each sort going back up the
+# chain. These "sorts" are fast because we are incrementing through the combined
+# length of each list, which is O(N), and because of the methodology of halving
+# each list, each O(N) "half" of runtime floats all the way back to the top, roughly
+# doubling in size each time, which ends up being logarithmic.
 
 
 def mergeSort(li):
