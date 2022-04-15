@@ -49,7 +49,7 @@ def bubbleSort(li):
 # which resolves to O(N^2).
 
 
-def selectionSortMin(li):
+def selectionSort(li):
     for i in range(0, len(li)):
         min = i
         for j in range(i, len(li)):
@@ -60,7 +60,7 @@ def selectionSortMin(li):
         li[i] = temp
 
 
-def selectionSort(li):
+def selectionSortMax(li):
     for i in range(len(li)-1, -1, -1):
         max = i
         for j in range(0, i):

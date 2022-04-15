@@ -1,0 +1,95 @@
+
+
+# ===============================
+#             TREES
+# ===============================
+
+
+class TreeNode:
+    def __init__(self, input_id, val):
+        self.id = input_id
+        self.value = val
+        self.children = []
+
+
+class Tree:
+    def __init__(self, root_value):
+        self.start = TreeNode(0, root_value)
+        self.nodes = 1
+
+    def search(self, search_val):
+        if self.start.value == search_val:
+            return True
+        else:
+            return self.search_recur(self.start, search_val)
+
+    def search_recur(self, parent_node, search_val):
+        if len(parent_node.children) > 0:
+            for child in parent_node.children:
+                if child.value == search_val:
+                    return True
+                branch = self.search_recur(child, search_val)
+                if branch == True:
+                    return branch
+        return False
+
+    def node_dfs(self, search_id):
+        if self.start.id == search_id:
+            return self.start
+        else:
+            return self.node_dfs_recur(self.start, search_id)
+
+    def node_dfs_recur(self, parent_node, search_id):
+        if len(parent_node.children) > 0:
+            for child in parent_node.children:
+                if child.id == search_id:
+                    return child
+                branch = self.node_dfs_recur(child, search_id)
+                if branch is not False:
+                    return branch
+        return False
+
+    def put(self, value, parent_id):
+        parent_node = self.node_dfs(parent_id)
+        if parent_node == False:
+            print("Error, parent node does not exist.")
+        else:
+            parent_node.children.append(TreeNode(self.nodes, value))
+            print("Node ID:", self.nodes, "value:", value,
+                  "Parent:", parent_node.value)
+            self.nodes += 1
+
+
+# ===============================
+#        DIRECTED GRAPHS
+# ===============================
+
+
+class Vertex:
+    def __init__(self, id, val):
+        self.id = id
+        self.value = val
+        self.connections = []
+
+
+class DirectedGraph:
+    def __init__(self, val):
+        self.vertexes = []
+
+
+a = Tree(7)
+a.put(12, 0)
+a.put(13, 0)
+a.put(14, 1)
+a.put(15, 1)
+a.put(16, 4)
+a.put(17, 4)
+
+print(a.search(7))
+print(a.search(12))
+print(a.search(13))
+print(a.search(14))
+print(a.search(15))
+print(a.search(16))
+print(a.search(17))
+print(a.search(18))

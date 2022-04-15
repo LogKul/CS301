@@ -131,6 +131,9 @@ class HashList:
 
 
 if __name__ == "__main__":
+    for i in range(0, 11):
+        print(bin_search([1, 2, 3, 4, 5, 6, 7, 8, 9], i, 0, 8))
+
     a = HashList(10)
     a.put(1)
     a.put(2)
