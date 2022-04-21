@@ -179,6 +179,12 @@ print(b.search(4))
 print(b.search(5))
 print(b.search(6))
 
+
+# ===============================
+#        QUESTIONS
+# ===============================
+
+
 #
 # 4.) What is the running time of each of the search algorithms?
 #
