@@ -30,6 +30,12 @@
          root because then our tree would be the most balanced, and the most efficient.
          The medians in this case are 7 and 11.
 
+         However, we don't want to rebuild the tree, so we pick the closest numbers
+         to 9, which would also be 7 and 11. These numbers can be found by starting at the
+         value that we want to switch, and by going left and right down the tree from that
+         value, and then continually going in the opposite direction until a value is found
+         with no children.
+
    3. def bubblesort(alist)
          for i in range(0, len(alist)):
             for j in range(1, len(alist)-i):
@@ -67,9 +73,9 @@
          26       23       6  7     20 10 
     
    7.
-      a. A, B, C, D, G, E
+      a. F, A, B, C, D, G, E
 
-      b. A, E, B, G, C, d
+      b. F, A, E, B, G, D, C
     
    8. Not drawing a stack frame diagram LMAO
 
@@ -117,6 +123,9 @@
          only iterate through the list once, and adding/updating elements in a
          dictionary is O(1), so we would end up with a lot of constant-time checks
          for every element in our list, so we get O(N).
+
+         It takes O(N logN) to sort a list, and it would take O(N) to search the
+         sorted list, so we can make an algorithm that runs in less than O(N^2) time.
    
 
 ============================================================================================
@@ -188,7 +197,7 @@
    7.
       a. DFS Order: a, b, e, g, j, h, i, d, f, C
 
-      b. BFS Order: a, b, c, e, d, g, i, j, h, factorial
+      b. BFS Order: a, b, d, c, e, f, g, i, j, h  factorial
    
    8. Not drawing a stack frame diagram
 
